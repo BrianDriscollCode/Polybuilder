@@ -84,12 +84,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\CommonIncludes.h" />
+    <ClInclude Include="src\Drawer.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="Polybuilder.h" />
     <ClInclude Include="src\StartPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependancies\GLAD\src\glad.c" />
+    <ClCompile Include="src\Drawer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\StartPoint.cpp" />
   </ItemGroup>

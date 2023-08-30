@@ -1,4 +1,6 @@
 #include "startPoint.h"
+
+//pull in main poly header
 #include "../Polybuilder.h"
 
 void start();

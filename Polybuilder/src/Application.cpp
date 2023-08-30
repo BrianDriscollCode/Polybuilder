@@ -1,24 +1,36 @@
 #include "Application.h"
-#include <iostream>
+#include "CommonIncludes.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+void draw();
 
+
+void processInput(GLFWwindow * window)
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(window, true);
+	}
+}
+
+// Called each time the window resizes
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
 
-int window(void)
+void initializeGLFW() 
 {
-
-
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+}
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+// Initialize Window 
+int window(void)
+{
+	// Create Window Object
+	GLFWwindow* window = glfwCreateWindow(800, 600, "Polybuilder", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -28,16 +40,28 @@ int window(void)
 
 	glfwMakeContextCurrent(window);
 
+	// Checking if Glad is initialized
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
 
+	// For resizing
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	// Render loop
 	while (!glfwWindowShouldClose(window))
 	{
+		// takes user input
+		processInput(window);
+
+		// rendering commands
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		draw();
+
+		// check and call events and swap buffers
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -48,19 +72,10 @@ int window(void)
 
 }
 
-
+//start application
 void start() {
 	bool status = true;
+	std::cout << "Welcome to Polybuilder!";
+	initializeGLFW();
     window();
-	while (status) {
-		int x = 0;
-		std::cout << "type a number";
-		std::cin >> x;
-
-		if (x == 1) {
-			status = false;
-		}
-	}
-
-	
 }
