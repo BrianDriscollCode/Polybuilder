@@ -1,8 +1,6 @@
 #include "Application.h"
 #include "CommonIncludes.h"
 
-void draw();
-
 
 void processInput(GLFWwindow * window)
 {
@@ -25,6 +23,11 @@ void initializeGLFW()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
+
+
+void draw();
+unsigned int setShaderProgram();
+unsigned int setVerticesAndIndices();
 
 // Initialize Window 
 int window(void)
@@ -49,7 +52,11 @@ int window(void)
 
 	// For resizing
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	
+	unsigned int shaderProgram = setShaderProgram();
+	unsigned int VAO = setVerticesAndIndices();
 
+	std::cout << "Render starting!" << std::endl;
 	// Render loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -59,7 +66,12 @@ int window(void)
 		// rendering commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		draw();
+
+		//Drawer.cpp
+		glUseProgram(shaderProgram);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawArrays(GL_TRIANGLES, 5, 3);
 
 		// check and call events and swap buffers
 		glfwSwapBuffers(window);
@@ -72,10 +84,11 @@ int window(void)
 
 }
 
+
 //start application
 void start() {
 	bool status = true;
-	std::cout << "Welcome to Polybuilder!";
+	std::cout << "Welcome to Polybuilder!" << std::endl;
 	initializeGLFW();
     window();
 }

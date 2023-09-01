@@ -94,6 +94,7 @@
     <ClCompile Include="..\Dependancies\GLAD\src\glad.c" />
     <ClCompile Include="src\Drawer.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Shaders.cpp" />
     <ClCompile Include="src\StartPoint.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
